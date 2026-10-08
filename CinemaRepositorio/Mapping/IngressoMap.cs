@@ -18,7 +18,6 @@ namespace CinemaRepositorio.Mapping
             builder.HasMany(x => x.IngressoItens)
                 .WithOne(x => x.Ingresso)
                 .OnDelete(DeleteBehavior.Cascade);
-     
         }
 
     }
@@ -35,7 +34,6 @@ namespace CinemaRepositorio.Mapping
             builder.HasOne(x => x.Ingresso)
                 .WithMany(x=> x.IngressoItens)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
 
     }

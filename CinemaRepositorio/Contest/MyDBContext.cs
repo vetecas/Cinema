@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CinemaRepositorio.Contest
 {
-    internal class MyDBContest
+    public class MyDBContext
     {
-        public class MyDBCoutext : DbContext
+        public class myDBContext : DbContext
         {
             public DbSet<Genero> Genero { get; set; }
             public DbSet<Filme> Filme { get; set; }
@@ -15,8 +15,7 @@ namespace CinemaRepositorio.Contest
             public DbSet<Ingresso> Ingresso { get; set; }
             public DbSet<IngressoItem> IngressoItem { get; set; }
 
-
-            public MyDBCoutext()
+            public myDBContext()
             {
                 Database.EnsureCreated(); // Verifica se o banco existe, se não tiver ele cria
             }

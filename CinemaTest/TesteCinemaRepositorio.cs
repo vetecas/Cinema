@@ -8,19 +8,17 @@ namespace CinemaTest
     [TestClass]
     public class TesteCinemaRepositorio
     {
-        public partial class MyDBCoutext : DbContext
+        public partial class MyDBContext : DbContext
         {
             public DbSet<Genero> Genero { get; set; }
             public DbSet<Filme> Filme { get; set; }
             public DbSet<Sala> Sala { get; set; }
-
             public DbSet<Sessao> Sessao { get; set; }
-
             public DbSet<Ingresso> Ingresso { get; set; }
             public DbSet<IngressoItem> IngressoItem { get; set; }
 
 
-            public MyDBCoutext()
+            public MyDBContext()
             {
                 Database.EnsureCreated(); // Verifica se o banco existe, se não tiver ele cria
 
@@ -46,7 +44,7 @@ namespace CinemaTest
         [TestMethod]
         public void CriarBanco()
         {
-            using (var db = new MyDBCoutext())
+            using (var db = new MyDBContext())
             {
                 Assert.IsNotNull(db);
             }
@@ -55,7 +53,7 @@ namespace CinemaTest
         [TestMethod]
         public void InsertGenero()
         {
-            using (var db = new MyDBCoutext())
+            using (var db = new MyDBContext())
             {
                 var genero = new Genero { Id = 1, Nome = "Comédia" };
                 db.Genero.Add(genero);
@@ -72,7 +70,7 @@ namespace CinemaTest
         [TestMethod]
         public void ListarGenero()
         {
-            using (var db = new MyDBCoutext())
+            using (var db = new MyDBContext())
             {
                 foreach (var item in db.Genero)
                 {
