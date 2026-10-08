@@ -1,48 +1,47 @@
 ﻿using CinemaDomain.Base;
 using CinemaRepositorio.Base;
-using CinemaRepositorio.Contest;
+using CinemaRepositorio.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaRepositorio.Repository
 {
     public class BaseRepository<TypeEntity> : InterfaceBaseRepository<TypeEntity> where TypeEntity : BaseEntity
     {
-        protected readonly MyDBContext _myDBContest;
+        protected readonly MyDBContext _myDBContext;
 
-        public BaseRepository(MyDBContext myDBContest)
+        public BaseRepository(MyDBContext myDBContext)
         {
-            _myDBContest = myDBContest;
+            _myDBContext = myDBContext;
         }
 
         public void Create(TypeEntity entity)
         {
-            _myDBContest.Add(entity);
-            _myDBContest.SaveChanges;
+            _myDBContext.Add(entity);
+            _myDBContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _myDBContest.Remove(ReadById(id));
-            _myDBContest.SaveChanges;
+            var entity = ReadById(id);
+            if (entity == null) return;
+            _myDBContext.Remove(entity);
+            _myDBContext.SaveChanges();
         }
 
         public IList<TypeEntity> ReadAll()
         {
-            var dbContext = _myDBContest.Set<TypeEntity>().AsQueryable();
-            var retorno = _myDBContest.ToList.Find(x => x.Id == id);
-
+            return _myDBContext.Set<TypeEntity>().ToList();
         }
 
         public TypeEntity ReadById(int id)
         {
-            var dbContext = _myDBContest.Set<TypeEntity>().AsQueryable();
-            var retorno = _myDBContest.ToList.Find(x=> x.Id == id);
+            return _myDBContext.Set<TypeEntity>().Find(id);
         }
 
         public void update(TypeEntity entity)
         {
-            _myDBContest.Entry(entity).State = EntityState.Modified;
-            _myDBContest.SaveChanges();
+            _myDBContext.Entry(entity).State = EntityState.Modified;
+            _myDBContext.SaveChanges();
         }
     }
 }
